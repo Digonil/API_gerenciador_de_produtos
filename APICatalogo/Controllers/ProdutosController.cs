@@ -19,7 +19,7 @@ public class ProdutosController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Produto>> Get()
     {
-        var produtos = _context.Produtos.ToList();
+        var produtos = _context.Produtos.Take(10).AsNoTracking().ToList();// Usado AsNoTracking pois a consulta não será rastreada (não haverá alteração nos dados consultados).Irá retornar apenas os primeiros 10 registros.
         if (produtos is null)
         {
             return NotFound("Produtos não encontrados!");
