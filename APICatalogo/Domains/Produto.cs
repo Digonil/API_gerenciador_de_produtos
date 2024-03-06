@@ -1,17 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using APICatalogo.Validations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace APICatalogo.Domains;
 
 [Table("Produtos")]
-public class Produto
+public class Produto  
 {
     [Key]
     public int ProdutoId { get; set; }
 
     [Required]
     [StringLength(80)]
+    [PrimeiraLetraMaiuscula]
     public string? Nome { get; set; }
 
     [Required]
@@ -32,7 +34,7 @@ public class Produto
     
     public int CategoriaId { get; set; }
 
-    [JsonIgnore]
+    [JsonIgnore] //Usado para que o Swagger omitir os dados da categoria Json de resposta.
     public Categoria? Categoria { get; set; }//Propriedade de navegação que indica que Categoria está vinculado ao Produto
 
 }
